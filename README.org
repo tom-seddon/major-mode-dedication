@@ -1,5 +1,4 @@
-major-mode-dedication
-=====================
+* major-mode-dedication
 
 This package lets you dedicate a major mode to a particular emacs
 window. Any time you - or emacs - try to display a buffer with that
@@ -19,8 +18,7 @@ And being based on major mode rather than particular buffer, it can
 also be useful for things like [[https://github.com/Wilfred/ag.el][ag-mode]] or shell mode (which pop up
 multiple buffers, all with the same major mode).
 
-installation
-============
+** installation
 
 Clone the github repo. Then, in your .emacs, set up =load-path=,
 =require= the package, and call =mmd-install= (this package isn't a
@@ -34,8 +32,7 @@ minor mode) to set it up. Something like:
 with the prefix =C-x D=. If this key combo is already used, it does
 nothing, in which case I'm afraid you're on your own.
 
-use (interactive)
-=================
+** use (interactive)
 
 When you've got a buffer of a particular mode displayed in a window
 where you like it, do =M-x mmd-set-major-mode-window-dedication=, or
@@ -50,8 +47,7 @@ one hiding the one that was previously shown there.
 You can use =M-x mmd-show-major-mode-window-dedication=, or =C-x D
 S=, to show the current window's major mode dedication as a message.
 
-use (elisp)
-===========
+** use (elisp)
 
 From elisp, there are two non-interactive functions you can call:
 =mmd-add-major-mode-window-dedication=, and
@@ -61,8 +57,7 @@ and a window, and add (or remove) the major mode to the window's list.
 These are intended for use in functions that set up some kind of
 standard window arrangement.
 
-open issues
-===========
+** open issues
 
 - If you pop up a buffer that's dedicated to a window in another
   frame, and that frame is obscured, you don't see anything. There
