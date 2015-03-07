@@ -55,23 +55,6 @@ and a window, and add (or remove) the major mode to the window's list.
 These are intended for use in functions that set up some kind of
 standard window arrangement.
 
-** interactive buffer switching and file loading
-
-By default, buffer switching and file loading put the new buffer in
-the current window, but you might want them to use the
-major-mode-dedication system instead.
-
-Unfortunately the default find-file and switch-to-buffer functions
-can't be overridden in this way. If you use [[http://emacswiki.org/emacs/InteractivelyDoThings][ido-mode]] (recommended!),
-however, you can put one or both of these lines in your .emacs:
-
-: (setq ido-default-file-method 'display)   ; for visiting files
-: (setq ido-default-buffer-method 'display) ; for switching buffers
-
-(If you then need to put a particular buffer in a particular window,
-you can always use M-x to invoke =find-file= or =switch-to-buffer=
-manually.)
-
 ** open issues
 
 - If you pop up a buffer that's dedicated to a window in another
