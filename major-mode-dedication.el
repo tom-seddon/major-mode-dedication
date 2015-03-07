@@ -1,4 +1,4 @@
-;;; major-mode-dedication.el --- dedicate windows to major mode(s)
+;;; major-mode-dedication.el --- dedicate windows to major mode(s)  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2013-14 Tom Seddon
 
@@ -116,6 +116,11 @@ not dedicated to M at all."
 (defun mmd-find-dedicated-window-for-mode (m flag)
   (car (mmd-windows-dedicated-to-mode m flag)))
 
+(defun mmd-find-window-for-major-mode (mode)
+  (or (mmd-find-auto-dedicated-window-for-mode mode)
+      (mmd-find-dedicated-window-for-mode mode 'solely)
+      (mmd-find-dedicated-window-for-mode mode 'partly)))
+
 (defun mmd-find-window-for-buffer (buffer)
   "find appropriate mmd-dedicated window for BUFFER.
 
@@ -123,9 +128,7 @@ May return nil if there's nothing specifically suitable. In that
 case, should pass the request on to the default emacs
 functionality."
   (let ((mode (mmd-major-mode-of-buffer buffer)))
-    (or (mmd-find-auto-dedicated-window-for-mode mode)
-	(mmd-find-dedicated-window-for-mode mode 'solely)
-	(mmd-find-dedicated-window-for-mode mode 'partly))))
+    (mmd-find-window-for-major-mode mode)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -158,7 +161,7 @@ functionality."
     't))
 
 (defun mmd-custom-display-buffer (buffer alist)
-  (mmd-message "mmd-custom-display-buffer: window=%s major-mode=%s" (selected-window) major-mode)
+  (mmd-message "mmd-custom-display-buffer: selected-window=%s buffer major-mode=%s" (selected-window) (mmd-major-mode-of-buffer buffer))
   (let ((w (mmd-find-window-for-buffer buffer)))
     (when w
       (set-window-buffer w buffer)
@@ -234,7 +237,3 @@ dedicated."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (provide 'major-mode-dedication)
-
-;; Local Variables:
-;; lexical-binding: t
-;; End:
