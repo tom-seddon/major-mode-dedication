@@ -1,18 +1,16 @@
 * major-mode-dedication
 
 This package lets you dedicate a major mode to a particular emacs
-window. Any time you - or emacs - try to display a buffer with that
-major mode, it will appear in its dedicated window. You can dedicate
-multiple major modes to the same window, and all appropriate buffers
-will appear in that window (one at a time...). And you can dedicate
-the same major mode to multiple windows, in which case a sensible
-window will be chosen each time.
+window. Any time some elisp uses =display-buffer= or
+=show-buffer-other-window= to show a buffer with that major mode, that
+buffer will appear in its dedicated window. This fixes virtually all
+cases where windows might ordinarily pop up somewhere unexpected when
+using facilities like help, rgrep, compilation, and so on.
 
-This behaviour is intended for use with singleton-type buffers such as
-=*compilation*=, =*scratch*=, =*Messages*=, =*grep*=, =*Help*= and so
-on, that you might want to have appear in a particular location rather
-than popping up in some random window and replacing something
-important.
+You can dedicate multiple major modes to the same window, and all
+appropriate buffers will appear in that window (one at a time...). And
+you can dedicate the same major mode to multiple windows, in which
+case a sensible window will be chosen each time.
 
 And being based on major mode rather than particular buffer, it can
 also be useful for things like [[https://github.com/Wilfred/ag.el][ag-mode]] or shell mode (which pop up
@@ -56,6 +54,23 @@ and a window, and add (or remove) the major mode to the window's list.
 
 These are intended for use in functions that set up some kind of
 standard window arrangement.
+
+** interactive buffer switching and file loading
+
+By default, buffer switching and file loading put the new buffer in
+the current window, but you might want them to use the
+major-mode-dedication system instead.
+
+Unfortunately the default find-file and switch-to-buffer functions
+can't be overridden in this way. If you use [[http://emacswiki.org/emacs/InteractivelyDoThings][ido-mode]] (recommended!),
+however, you can put one or both of these lines in your .emacs:
+
+: (setq ido-default-file-method 'display)   ; for visiting files
+: (setq ido-default-buffer-method 'display) ; for switching buffers
+
+(If you then need to put a particular buffer in a particular window,
+you can always use M-x to invoke =find-file= or =switch-to-buffer=
+manually.)
 
 ** open issues
 
