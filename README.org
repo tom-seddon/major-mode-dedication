@@ -38,6 +38,11 @@ where you like it, do =M-x mmd-set-major-mode-window-dedication=, or
 mode. (To remove the dedication, use a prefix argument - =C-u C-x D
 D=.)
 
+To associate a window with buffers of some other major mode, use =M-x
+mmd-set-major-mode-window-dedication-by-name=, or =C-x D N=. Select
+the mode from the list (major-mode-dedication will try to find all
+functions that look like they might be major modes), or enter the name by hand.
+
 You can "dedicate" a window to more than one major mode - this just
 means multiple types of buffer will appear in the same window, each
 one hiding the one that was previously shown there.

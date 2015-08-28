@@ -215,10 +215,35 @@ dedicated."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun mmd-set-major-mode-window-dedication-by-name ()
+  "Sets the selected window's major mode dedication."
+
+  (interactive)
+  (let* (mode-names)
+    (mapatoms
+     (lambda (x)
+       ;; Deciding whether a name is that of a major mode involves a
+       ;; bit of guesswork...
+       (when (and (fboundp x)
+		  (commandp x)
+		  (not (subrp (symbol-function x))))
+	 (let ((name (symbol-name x)))
+	   (when (and (string-suffix-p "-mode" name)
+		      (not (string-suffix-p "-minor-mode" name)))
+	     (add-to-list 'mode-names name))))))
+    (let* ((mode (ido-completing-read "Mode: " mode-names)))
+      (when mode
+	(mmd-add-major-mode-window-dedication (intern mode)
+					      (selected-window))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defvar mmd-basic-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "d") 'mmd-set-major-mode-window-dedication)
     (define-key map (kbd "s") 'mmd-show-major-mode-window-dedication)
+    (define-key map (kbd "n") 'mmd-set-major-mode-window-dedication-by-name)
     map))
 
 (defun mmd-update-alist (alist-name key value)
