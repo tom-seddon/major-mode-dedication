@@ -215,6 +215,15 @@ dedicated."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun mmd-reset-major-mode-window-dedication ()
+  "Resets the selected window's major mode dedication, if any. If
+there is no major mode dedication, this function does nothing."
+  (interactive "P")
+  (set-window-parameter (selected-window) mmd-major-modes nil))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (defun mmd-set-major-mode-window-dedication-by-name ()
   "Sets the selected window's major mode dedication."
 

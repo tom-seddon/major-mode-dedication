@@ -52,10 +52,13 @@ S=, to show the current window's major mode dedication as a message.
 
 ** use (elisp)
 
-From elisp, there are two non-interactive functions you can call:
-=mmd-add-major-mode-window-dedication=, and
-=mmd-remove-major-mode-window-dedication=. Both take a major mode name
-and a window, and add (or remove) the major mode to the window's list.
+Call =mmd-add-major-mode-window-dedication=, and
+=mmd-remove-major-mode-window-dedication= to adjust the current
+window's major modes list. Both take a major mode name and a window,
+and add (or remove) the major mode to the window's list.
+
+Call =mmd-reset-major-mode-window-dedication= to clear the current
+window's major modes list.
 
 These are intended for use in functions that set up some kind of
 standard window arrangement.
